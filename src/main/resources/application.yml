@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: tdplay
+
+  datasource:
+    url: jdbc:TAOS://212.64.81.212:6020/new_pre_db?user=root&password=taosdata&charset=UTF-8
+    driver-class-name: com.taosdata.jdbc.TSDBDriver
+    hikari:
+      connection-test-query: select server_status();

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.tdplay.repository.GpsDataDAO">
+  <resultMap id="BaseResultMap" type="com.example.tdplay.model.GpsData">
+    <result column="ts" jdbcType="BIGINT" property="ts" />
+    <result column="carrier_id" jdbcType="VARCHAR" property="carrierId" />
+    <result column="device_id" jdbcType="VARCHAR" property="deviceId" />
+    <result column="driver_id" jdbcType="VARCHAR" property="driverId" />
+    <result column="longitude" jdbcType="DOUBLE" property="longitude" />
+    <result column="latitude" jdbcType="DOUBLE" property="latitude" />
+    <result column="hdop" jdbcType="DOUBLE" property="hdop" />
+    <result column="speed" jdbcType="DOUBLE" property="speed" />
+  </resultMap>
+  <resultMap id="BaseResultMapWeak" type="com.example.tdplay.model.GpsDataWeak">
+    <result column="ts" jdbcType="BIGINT" property="ts" />
+    <result column="carrier_id" jdbcType="VARCHAR" property="carrierId" />
+    <result column="device_id" jdbcType="VARCHAR" property="deviceId" />
+    <result column="driver_id" jdbcType="VARCHAR" property="driverId" />
+    <result column="longitude" jdbcType="DOUBLE" property="longitude" />
+    <result column="latitude" jdbcType="DOUBLE" property="latitude" />
+    <result column="hdop" jdbcType="DOUBLE" property="hdop" />
+    <result column="speed" jdbcType="DOUBLE" property="speed" />
+  </resultMap>
+  <resultMap id="LastGpsDataMap" type="com.example.tdplay.model.GpsData">
+    <result column="last_row(ts)" jdbcType="BIGINT" property="ts" />
+    <result column="carrier_id" jdbcType="VARCHAR" property="carrierId" />
+    <result column="device_id" jdbcType="VARCHAR" property="deviceId" />
+    <result column="driver_id" jdbcType="VARCHAR" property="driverId" />
+    <result column="last_row(longitude)" jdbcType="DOUBLE" property="longitude" />
+    <result column="last_row(latitude)" jdbcType="DOUBLE" property="latitude" />
+    <result column="last_row(hdop)" jdbcType="DOUBLE" property="hdop" />
+    <result column="last_row(speed)" jdbcType="DOUBLE" property="speed" />
+  </resultMap>
+  <insert id="bulkInsert">
+    IMPORT INTO gps_data_${subTable} USING gps_data TAGS (#{carrierId},#{deviceId},#{driverId}) VALUES
+    <foreach collection="itemList" index="index" item="item">
+      (#{item.ts},#{item.longitude},#{item.latitude},#{item.hdop},#{item.speed})
+    </foreach>
+    ;
+  </insert>
+  <select id="query" parameterType="com.aidong.smartlinkproxyservice.model.requestmodel.GpsQueryForm" resultMap="BaseResultMap">
+    SELECT * FROM gps_data
+    <where>
+      <if test="carrierId != null">and carrier_id=#{carrierId,jdbcType=VARCHAR}</if>
+      <if test="deviceId != null">and device_id=#{deviceId,jdbcType=VARCHAR}</if>
+      <if test="driverId != null">and driver_id=#{driverId,jdbcType=VARCHAR}</if>
+      <if test="startTime != null">and #{startTime,jdbcType=BIGINT}&lt;=ts</if>
+      <if test="endTime != null">and ts&lt;#{endTime,jdbcType=BIGINT}</if>
+    </where>
+    <if test="pageSize lt 65536">LIMIT #{pageSize,jdbcType=INTEGER}</if>
+    <if test="pageSize gt 0 and pageIndex gt 0">OFFSET ${pageIndex*pageSize}</if>
+  </select>
+
+  <insert id="insertOne">
+    INSERT INTO gps_data_${subTable} USING gps_data TAGS (#{item.carrierId},#{item.deviceId},#{item.driverId}) VALUES
+    (#{item.ts},#{item.longitude},#{item.latitude},#{item.hdop},#{item.speed});
+  </insert>
+
+  <insert id="importOne">
+    IMPORT INTO gps_data_${subTable} USING gps_data TAGS (#{item.carrierId},#{item.deviceId},#{item.driverId}) VALUES (#{item.ts},#{item.longitude},#{item.latitude},#{item.hdop},#{item.speed});
+  </insert>
+
+  <select id="selectLastTimestamp" resultType="java.lang.Long">
+    SELECT LAST_ROW(ts) FROM gps_data_${subTable};
+  </select>
+
+  <select id="selectByFullTag" resultMap="BaseResultMap">
+    SELECT * FROM gps_data
+    <where>
+      <if test="ts != null">and ts=#{ts,jdbcType=BIGINT}</if>
+      <if test="carrierId != null">and carrier_id=#{carrierId,jdbcType=VARCHAR}</if>
+      <if test="deviceId != null">and device_id=#{deviceId,jdbcType=VARCHAR}</if>
+      <if test="driverId != null">and driver_id=#{driverId,jdbcType=VARCHAR}</if>
+    </where>
+  </select>
+
+  <insert id="importMany">
+    IMPORT INTO
+    <foreach collection="multiTableDataList" index="tableIndex" item="table">
+      ${table.name} USING gps_data TAGS (#{table.carrierId},#{table.deviceId},#{table.driverId}) VALUES
+      <foreach collection="table.data" index="dataIndex" item="item">
+        (#{item.ts},#{item.longitude},#{item.latitude},#{item.hdop},#{item.speed})
+      </foreach>
+    </foreach>
+  </insert>
+</mapper>

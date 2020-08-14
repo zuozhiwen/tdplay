@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.tdplay.repository.CanDataDAO">
+  <resultMap id="BaseResultMap" type="com.example.tdplay.model.CanData">
+    <id column="ts" jdbcType="TIMESTAMP" property="ts" />
+    <result column="carrier_id" jdbcType="VARCHAR" property="carrierId" />
+    <result column="device_id" jdbcType="VARCHAR" property="deviceId" />
+    <result column="driver_id" jdbcType="VARCHAR" property="driverId" />
+    <result column="rfid" jdbcType="VARCHAR" property="rfid" />
+    <result column="hour_of_created_at" jdbcType="INTEGER" property="hourOfCreatedAt" />
+    <result column="avg_velocity" jdbcType="INTEGER" property="avgVelocity" />
+    <result column="distance" jdbcType="DOUBLE" property="distance" />
+    <result column="abs_distance" jdbcType="DOUBLE" property="absDistance" />
+    <result column="moving_time" jdbcType="DOUBLE" property="movingTime" />
+    <result column="battery_volt" jdbcType="INTEGER" property="batteryVolt" />
+    <result column="battery_current" jdbcType="INTEGER" property="batteryCurrent" />
+    <result column="battery_state" jdbcType="INTEGER" property="batteryState" />
+    <result column="brake_time" jdbcType="DOUBLE" property="brakeTime" />
+    <result column="seat_time" jdbcType="DOUBLE" property="seatTime" />
+    <result column="fork_time" jdbcType="DOUBLE" property="forkTime" />
+    <result column="overlap_time" jdbcType="DOUBLE" property="overlapTime" />
+    <result column="fork_counter" jdbcType="INTEGER" property="forkCounter" />
+    <result column="move_counter" jdbcType="INTEGER" property="moveCounter" />
+    <result column="forward_counter" jdbcType="INTEGER" property="forwardCounter" />
+    <result column="reverse_counter" jdbcType="INTEGER" property="reverseCounter" />
+    <result column="direction_change_counter" jdbcType="INTEGER" property="directionChangeCounter" />
+    <result column="forward_time" jdbcType="DOUBLE" property="forwardTime" />
+    <result column="reverse_time" jdbcType="DOUBLE" property="reverseTime" />
+    <result column="forward_distance" jdbcType="DOUBLE" property="forwardDistance" />
+    <result column="reverse_distance" jdbcType="DOUBLE" property="reverseDistance" />
+    <result column="carry_time" jdbcType="DOUBLE" property="carryTime" />
+    <result column="carry_count" jdbcType="INTEGER" property="carryCount" />
+    <result column="turn_on_time" jdbcType="DOUBLE" property="turnOnTime" />
+  </resultMap>
+  <resultMap id="BaseResultMapWeak" type="com.example.tdplay.model.CanDataWeak">
+  <id column="ts" jdbcType="TIMESTAMP" property="ts" />
+  <result column="carrier_id" jdbcType="VARCHAR" property="carrierId" />
+  <result column="device_id" jdbcType="VARCHAR" property="deviceId" />
+  <result column="driver_id" jdbcType="VARCHAR" property="driverId" />
+  <result column="rfid" jdbcType="VARCHAR" property="rfid" />
+  <result column="hour_of_created_at" jdbcType="INTEGER" property="hourOfCreatedAt" />
+  <result column="avg_velocity" jdbcType="INTEGER" property="avgVelocity" />
+  <result column="distance" jdbcType="DOUBLE" property="distance" />
+  <result column="abs_distance" jdbcType="DOUBLE" property="absDistance" />
+  <result column="moving_time" jdbcType="DOUBLE" property="movingTime" />
+  <result column="battery_volt" jdbcType="INTEGER" property="batteryVolt" />
+  <result column="battery_current" jdbcType="INTEGER" property="batteryCurrent" />
+  <result column="battery_state" jdbcType="INTEGER" property="batteryState" />
+  <result column="brake_time" jdbcType="DOUBLE" property="brakeTime" />
+  <result column="seat_time" jdbcType="DOUBLE" property="seatTime" />
+  <result column="fork_time" jdbcType="DOUBLE" property="forkTime" />
+  <result column="overlap_time" jdbcType="DOUBLE" property="overlapTime" />
+  <result column="fork_counter" jdbcType="INTEGER" property="forkCounter" />
+  <result column="move_counter" jdbcType="INTEGER" property="moveCounter" />
+  <result column="forward_counter" jdbcType="INTEGER" property="forwardCounter" />
+  <result column="reverse_counter" jdbcType="INTEGER" property="reverseCounter" />
+  <result column="direction_change_counter" jdbcType="INTEGER" property="directionChangeCounter" />
+  <result column="forward_time" jdbcType="DOUBLE" property="forwardTime" />
+  <result column="reverse_time" jdbcType="DOUBLE" property="reverseTime" />
+  <result column="forward_distance" jdbcType="DOUBLE" property="forwardDistance" />
+  <result column="reverse_distance" jdbcType="DOUBLE" property="reverseDistance" />
+  <result column="carry_time" jdbcType="DOUBLE" property="carryTime" />
+  <result column="carry_count" jdbcType="INTEGER" property="carryCount" />
+  <result column="turn_on_time" jdbcType="DOUBLE" property="turnOnTime" />
+</resultMap>
+  <resultMap id="LastCanDataMap" type="com.example.tdplay.model.CanData">
+    <id column="last_row(ts)" jdbcType="TIMESTAMP" property="ts" />
+    <result column="carrier_id" jdbcType="VARCHAR" property="carrierId" />
+    <result column="device_id" jdbcType="VARCHAR" property="deviceId" />
+    <result column="driver_id" jdbcType="VARCHAR" property="driverId" />
+    <result column="last_row(rfid)" jdbcType="VARCHAR" property="rfid" />
+    <result column="last_row(hour_of_created_at)" jdbcType="INTEGER" property="hourOfCreatedAt" />
+    <result column="last_row(avg_velocity)" jdbcType="INTEGER" property="avgVelocity" />
+    <result column="last_row(distance)" jdbcType="DOUBLE" property="distance" />
+    <result column="last_row(abs_distance)" jdbcType="DOUBLE" property="absDistance" />
+    <result column="last_row(moving_time)" jdbcType="DOUBLE" property="movingTime" />
+    <result column="last_row(battery_volt)" jdbcType="INTEGER" property="batteryVolt" />
+    <result column="last_row(battery_current)" jdbcType="INTEGER" property="batteryCurrent" />
+    <result column="last_row(battery_state)" jdbcType="INTEGER" property="batteryState" />
+    <result column="last_row(brake_time)" jdbcType="DOUBLE" property="brakeTime" />
+    <result column="last_row(seat_time)" jdbcType="DOUBLE" property="seatTime" />
+    <result column="last_row(fork_time)" jdbcType="DOUBLE" property="forkTime" />
+    <result column="last_row(overlap_time)" jdbcType="DOUBLE" property="overlapTime" />
+    <result column="last_row(fork_counter)" jdbcType="INTEGER" property="forkCounter" />
+    <result column="last_row(move_counter)" jdbcType="INTEGER" property="moveCounter" />
+    <result column="last_row(forward_counter)" jdbcType="INTEGER" property="forwardCounter" />
+    <result column="last_row(reverse_counter)" jdbcType="INTEGER" property="reverseCounter" />
+    <result column="last_row(direction_change_counter)" jdbcType="INTEGER" property="directionChangeCounter" />
+    <result column="last_row(forward_time)" jdbcType="DOUBLE" property="forwardTime" />
+    <result column="last_row(reverse_time)" jdbcType="DOUBLE" property="reverseTime" />
+    <result column="last_row(forward_distance)" jdbcType="DOUBLE" property="forwardDistance" />
+    <result column="last_row(reverse_distance)" jdbcType="DOUBLE" property="reverseDistance" />
+    <result column="last_row(carry_time)" jdbcType="DOUBLE" property="carryTime" />
+    <result column="last_row(carry_count)" jdbcType="INTEGER" property="carryCount" />
+    <result column="last_row(turn_on_time)" jdbcType="DOUBLE" property="turnOnTime" />
+  </resultMap>
+  <resultMap id="DeviceUploadCountMap" type="com.aidong.smartlinkproxyservice.model.bo.DeviceUploadCountBo">
+    <result column="device_id" jdbcType="VARCHAR" property="deviceId" />
+    <result column="count" jdbcType="INTEGER" property="count" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ts, carrier_id, device_id, driver_id, rfid, hour_of_created_at, avg_velocity, distance, 
+    abs_distance, moving_time, battery_volt, battery_current, battery_state, brake_time, 
+    seat_time, fork_time, overlap_time, fork_counter, move_counter, forward_counter, 
+    reverse_counter, direction_change_counter, forward_time, reverse_time, forward_distance, 
+    reverse_distance, carry_time, carry_count, turn_on_time
+  </sql>
+  <insert id="bulkInsert">
+    IMPORT INTO can_data_${subTable} USING can_data TAGS (#{carrierId},#{deviceId},#{driverId}) VALUES
+    <foreach collection="itemList" index="index" item="item">
+      (#{item.ts}, #{item.rfid}, #{item.hourOfCreatedAt}, #{item.avgVelocity}, #{item.distance}, #{item.absDistance}, #{item.movingTime}, #{item.batteryVolt}, #{item.batteryCurrent}, #{item.batteryState}, #{item.brakeTime}, #{item.seatTime}, #{item.forkTime}, #{item.overlapTime}, #{item.forkCounter}, #{item.moveCounter}, #{item.forwardCounter}, #{item.reverseCounter}, #{item.directionChangeCounter}, #{item.forwardTime}, #{item.reverseTime}, #{item.forwardDistance}, #{item.reverseDistance}, #{item.carryTime}, #{item.carryCount}, #{item.turnOnTime})
+    </foreach>
+    ;
+  </insert>
+  <select id="query" parameterType="com.aidong.smartlinkproxyservice.model.requestmodel.CanDataQueryForm" resultMap="BaseResultMap">
+    SELECT * FROM can_data
+    <where>
+      <if test="carrierId != null">and carrier_id=#{carrierId,jdbcType=VARCHAR}</if>
+      <if test="deviceId != null">and device_id=#{deviceId,jdbcType=VARCHAR}</if>
+      <if test="driverId != null">and driver_id=#{driverId,jdbcType=VARCHAR}</if>
+      <if test="startTime != null">and #{startTime,jdbcType=BIGINT}&lt;=ts</if>
+      <if test="endTime != null">and ts&lt;#{endTime,jdbcType=BIGINT}</if>
+    </where>
+    <if test="pageSize lt 65536">LIMIT #{pageSize,jdbcType=INTEGER}</if>
+    <if test="pageSize lt 65536 and pageIndex gt 0">OFFSET ${pageIndex*pageSize}</if>
+  </select>
+
+  <select id="calcEffect" parameterType="com.aidong.smartlinkproxyservice.model.requestmodel.CanDataQueryForm" resultType="com.aidong.smartlinkproxyservice.model.dto.CanDataEffectDto">
+    select max(avg_velocity) as maxAvgVelocity,min(avg_velocity) as minAvgVelocity,last(avg_velocity) as avgVelocity, sum(distance) as distance, sum(abs_distance) as absDistance, sum(moving_time) as movingTime, last(battery_volt) as batteryVolt, last(battery_current) as batteryCurrent, last(battery_state) as batteryState, sum(brake_time) as brakeTime, sum(seat_time) as seatTime, sum(fork_time) as forkTime, sum(overlap_time) as overlapTime, sum(fork_counter) as forkCounter, sum(move_counter) as moveCounter, sum(forward_counter) as forwardCounter, sum(reverse_counter) as reverseCounter, sum(direction_change_counter) as directionChangeCounter, sum(forward_time) as forwardTime, sum(reverse_time) as reverseTime, sum(forward_distance) as forwardDistance, sum(reverse_distance) as reverseDistance, sum(carry_time) as carryTime, sum(carry_count) as carryCount, sum(turn_on_time) as turnOnTime from can_data
+    <where>
+      <if test="carrierId != null">and carrier_id=#{carrierId,jdbcType=VARCHAR}</if>
+      <if test="deviceId != null">and device_id=#{deviceId,jdbcType=VARCHAR}</if>
+      <if test="driverId != null">and driver_id=#{driverId,jdbcType=VARCHAR}</if>
+      <if test="startTime != null">and #{startTime,jdbcType=BIGINT}&lt;=ts</if>
+      <if test="endTime != null">and ts&lt;#{endTime,jdbcType=BIGINT}</if>
+    </where>
+    <if test="pageSize lt 65536">LIMIT #{pageSize,jdbcType=INTEGER}</if>
+    <if test="pageSize lt 65536 and pageIndex gt 0">OFFSET ${pageIndex*pageSize}</if>
+  </select>
+
+  <select id="calcEffectByHour" parameterType="com.aidong.smartlinkproxyservice.model.requestmodel.CanDataQueryForm" resultType="com.aidong.smartlinkproxyservice.model.dto.CanDataEffectIntervalDto">
+    select last(avg_velocity) as avgVelocity, sum(distance) as distance, sum(abs_distance) as absDistance, sum(moving_time) as movingTime, last(battery_volt) as batteryVolt, last(battery_current) as batteryCurrent, last(battery_state) as batteryState, sum(brake_time) as brakeTime, sum(seat_time) as seatTime, sum(fork_time) as forkTime, sum(overlap_time) as overlapTime, sum(fork_counter) as forkCounter, sum(move_counter) as moveCounter, sum(forward_counter) as forwardCounter, sum(reverse_counter) as reverseCounter, sum(direction_change_counter) as directionChangeCounter, sum(forward_time) as forwardTime, sum(reverse_time) as reverseTime, sum(forward_distance) as forwardDistance, sum(reverse_distance) as reverseDistance, sum(carry_time) as carryTime, sum(carry_count) as carryCount, sum(turn_on_time) as turnOnTime from can_data
+    <where>
+      <if test="carrierId != null">and carrier_id=#{carrierId,jdbcType=VARCHAR}</if>
+      <if test="deviceId != null">and device_id=#{deviceId,jdbcType=VARCHAR}</if>
+      <if test="driverId != null">and driver_id=#{driverId,jdbcType=VARCHAR}</if>
+      <if test="startTime != null">and #{startTime,jdbcType=BIGINT}&lt;=ts</if>
+      <if test="endTime != null">and ts&lt;#{endTime,jdbcType=BIGINT}</if>
+    </where>
+    INTERVAL(1h) FILL('NULL')
+    <if test="pageSize lt 65536">LIMIT #{pageSize,jdbcType=INTEGER}</if>
+    <if test="pageSize lt 65536 and pageIndex gt 0">OFFSET ${pageIndex*pageSize}</if>
+  </select>
+
+  <select id="queryMax" parameterType="com.aidong.smartlinkproxyservice.model.requestmodel.CanQueryMaxForm" resultType="java.util.HashMap">
+    SELECT
+    <choose>
+      <when test="asc == true">min(${queryField}) as ${queryField}</when>
+      <otherwise>max(${queryField}) as ${queryField}</otherwise>
+    </choose>
+    FROM can_data
+    <where>
+      <if test="carrierId != null">and carrier_id=#{carrierId,jdbcType=VARCHAR}</if>
+      <if test="deviceId != null">and device_id=#{deviceId,jdbcType=VARCHAR}</if>
+      <if test="driverId != null">and driver_id=#{driverId,jdbcType=VARCHAR}</if>
+      <if test="startTime != null">and #{startTime,jdbcType=BIGINT}&lt;=ts</if>
+      <if test="endTime != null">and ts&lt;#{endTime,jdbcType=BIGINT}</if>
+    </where>
+  </select>
+
+  <insert id="insertOne">
+    INSERT INTO can_data_${subTable} USING can_data TAGS (#{item.carrierId},#{item.deviceId},#{item.driverId}) VALUES
+    (#{item.ts}, #{item.rfid}, #{item.hourOfCreatedAt}, #{item.avgVelocity}, #{item.distance}, #{item.absDistance}, #{item.movingTime}, #{item.batteryVolt}, #{item.batteryCurrent}, #{item.batteryState}, #{item.brakeTime}, #{item.seatTime}, #{item.forkTime}, #{item.overlapTime}, #{item.forkCounter}, #{item.moveCounter}, #{item.forwardCounter}, #{item.reverseCounter}, #{item.directionChangeCounter}, #{item.forwardTime}, #{item.reverseTime}, #{item.forwardDistance}, #{item.reverseDistance}, #{item.carryTime}, #{item.carryCount}, #{item.turnOnTime});
+  </insert>
+
+  <insert id="importOne">
+    IMPORT INTO can_data_${subTable} USING can_data TAGS (#{item.carrierId},#{item.deviceId},#{item.driverId}) VALUES (#{item.ts}, #{item.rfid}, #{item.hourOfCreatedAt}, #{item.avgVelocity}, #{item.distance}, #{item.absDistance}, #{item.movingTime}, #{item.batteryVolt}, #{item.batteryCurrent}, #{item.batteryState}, #{item.brakeTime}, #{item.seatTime}, #{item.forkTime}, #{item.overlapTime}, #{item.forkCounter}, #{item.moveCounter}, #{item.forwardCounter}, #{item.reverseCounter}, #{item.directionChangeCounter}, #{item.forwardTime}, #{item.reverseTime}, #{item.forwardDistance}, #{item.reverseDistance}, #{item.carryTime}, #{item.carryCount}, #{item.turnOnTime});
+  </insert>
+
+  <select id="selectLastTimestamp" resultType="java.lang.Long">
+    SELECT LAST_ROW(ts) FROM can_data_${subTable};
+  </select>
+
+  <select id="selectByFullTag" resultMap="BaseResultMap">
+    SELECT * FROM can_data
+    <where>
+      <if test="ts != null">and ts=#{ts,jdbcType=BIGINT}</if>
+      <if test="carrierId != null">and carrier_id=#{carrierId,jdbcType=VARCHAR}</if>
+      <if test="deviceId != null">and device_id=#{deviceId,jdbcType=VARCHAR}</if>
+      <if test="driverId != null">and driver_id=#{driverId,jdbcType=VARCHAR}</if>
+    </where>
+  </select>
+
+  <select id="selectCarrierSpeedIntervalList" resultType="com.aidong.smartlinkproxyservice.model.bo.CarrierSpeedIntervalBo">
+    SELECT LAST(avg_velocity) as avgVelocity FROM can_data
+    <where>
+      <if test="carrierId != null">and carrier_id=#{carrierId,jdbcType=VARCHAR}</if>
+      <if test="startTime != null">and #{startTime,jdbcType=BIGINT}&lt;=ts</if>
+      <if test="endTime != null">and ts&lt;#{endTime,jdbcType=BIGINT}</if>
+    </where>
+    INTERVAL(15m) FILL('NULL')
+  </select>
+
+  <select id="queryOnlineTime" resultType="java.lang.Long">
+    SELECT sum(turn_on_time) FROM can_data
+    <where>
+      <if test="carrierId != null">and carrier_id=#{carrierId,jdbcType=VARCHAR}</if>
+      <if test="deviceId != null">and device_id=#{deviceId,jdbcType=VARCHAR}</if>
+      <if test="driverId != null">and driver_id=#{driverId,jdbcType=VARCHAR}</if>
+      <if test="startTime != null">and #{startTime,jdbcType=BIGINT}&lt;=ts</if>
+      <if test="endTime != null">and ts&lt;#{endTime,jdbcType=BIGINT}</if>
+    </where>
+  </select>
+
+  <select id="queryOnlineTimeHour" resultType="com.aidong.smartlinkproxyservice.model.dto.OnlineTimeSimpleDTO">
+    SELECT sum(turn_on_time) as turnOnTime FROM can_data
+    <where>
+      <if test="carrierId != null">and carrier_id=#{carrierId,jdbcType=VARCHAR}</if>
+      <if test="deviceId != null">and device_id=#{deviceId,jdbcType=VARCHAR}</if>
+      <if test="driverId != null">and driver_id=#{driverId,jdbcType=VARCHAR}</if>
+      <if test="startTime != null">and #{startTime,jdbcType=BIGINT}&lt;=ts</if>
+      <if test="endTime != null">and ts&lt;#{endTime,jdbcType=BIGINT}</if>
+    </where>
+    INTERVAL(1h) FILL('NULL')
+  </select>
+
+  <insert id="importMany">
+    IMPORT INTO
+    <foreach collection="multiTableDataList" index="tableIndex" item="table">
+      ${table.name} USING can_data TAGS (#{table.carrierId},#{table.deviceId},#{table.driverId}) VALUES
+      <foreach collection="table.data" index="dataIndex" item="item">
+        (#{item.ts}, #{item.rfid}, #{item.hourOfCreatedAt}, #{item.avgVelocity}, #{item.distance}, #{item.absDistance}, #{item.movingTime}, #{item.batteryVolt}, #{item.batteryCurrent}, #{item.batteryState}, #{item.brakeTime}, #{item.seatTime}, #{item.forkTime}, #{item.overlapTime}, #{item.forkCounter}, #{item.moveCounter}, #{item.forwardCounter}, #{item.reverseCounter}, #{item.directionChangeCounter}, #{item.forwardTime}, #{item.reverseTime}, #{item.forwardDistance}, #{item.reverseDistance}, #{item.carryTime}, #{item.carryCount}, #{item.turnOnTime})
+      </foreach>
+    </foreach>
+  </insert>
+</mapper>

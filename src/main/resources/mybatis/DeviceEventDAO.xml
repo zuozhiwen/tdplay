@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.tdplay.repository.DeviceEventDAO">
+  <resultMap id="BaseResultMap" type="com.example.tdplay.model.DeviceEvent">
+    <id column="ts" jdbcType="TIMESTAMP" property="ts" />
+    <result column="carrier_id" jdbcType="VARCHAR" property="carrierId" />
+    <result column="device_id" jdbcType="VARCHAR" property="deviceId" />
+    <result column="driver_id" jdbcType="VARCHAR" property="driverId" />
+    <result column="value" jdbcType="VARCHAR" property="value" />
+    <result column="event_cmd_id" jdbcType="INTEGER" property="eventCmdId" />
+  </resultMap>
+  <resultMap id="LastDeviceEventMap" type="com.example.tdplay.model.DeviceEvent">
+    <id column="last_row(ts)" jdbcType="TIMESTAMP" property="ts" />
+    <result column="carrier_id" jdbcType="VARCHAR" property="carrierId" />
+    <result column="device_id" jdbcType="VARCHAR" property="deviceId" />
+    <result column="driver_id" jdbcType="VARCHAR" property="driverId" />
+    <result column="last_row(value)" jdbcType="VARCHAR" property="value" />
+    <result column="last_row(event_cmd_id)" jdbcType="INTEGER" property="eventCmdId" />
+  </resultMap>
+  <resultMap id="DeviceUploadCountMap" type="com.aidong.smartlinkproxyservice.model.bo.DeviceUploadCountBo">
+    <result column="device_id" jdbcType="VARCHAR" property="deviceId" />
+    <result column="count" jdbcType="INTEGER" property="count" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ts, carrier_id, device_id, driver_id, `value`, event_cmd_id
+  </sql>
+  <insert id="bulkInsert">
+    IMPORT INTO device_event_${subTable} USING device_event TAGS (#{carrierId},#{deviceId},#{driverId},#{eventCmdId}) VALUES
+    <foreach collection="itemList" index="index" item="item">
+      (#{item.ts}, #{item.value})
+    </foreach>
+    ;
+  </insert>
+  <select id="query" parameterType="com.aidong.smartlinkproxyservice.model.requestmodel.CarrierQueryForm" resultMap="BaseResultMap">
+    SELECT * FROM device_event
+    <where>
+      <if test="carrierId != null">and carrier_id=#{carrierId,jdbcType=VARCHAR}</if>
+      <if test="deviceId != null">and device_id=#{deviceId,jdbcType=VARCHAR}</if>
+      <if test="driverId != null">and driver_id=#{driverId,jdbcType=VARCHAR}</if>
+      <if test="eventCmdId != null">and event_cmd_id=#{eventCmdId,jdbcType=INTEGER} </if>
+      <if test="startTime != null">and #{startTime,jdbcType=BIGINT}&lt;=ts</if>
+      <if test="endTime != null">and ts&lt;#{endTime,jdbcType=BIGINT}</if>
+    </where>
+    <if test="pageSize lt 65536">LIMIT #{pageSize,jdbcType=INTEGER}</if>
+    <if test="pageSize gt 0 and pageIndex gt 0">OFFSET ${pageIndex*pageSize}</if>
+  </select>
+
+  <insert id="insertOne">
+    INSERT INTO device_event_${subTable} USING device_event TAGS (#{item.carrierId},#{item.deviceId},#{item.driverId},#{item.eventCmdId}) VALUES
+    (#{item.ts}, #{item.value});
+  </insert>
+
+  <insert id="importOne">
+    IMPORT INTO device_event_${subTable} USING device_event TAGS (#{item.carrierId},#{item.deviceId},#{item.driverId},#{item.eventCmdId}) VALUES (#{item.ts}, #{item.value});
+  </insert>
+
+  <select id="selectLastTimestamp" resultType="java.lang.Long">
+    SELECT LAST_ROW(ts) FROM device_event_${subTable};
+  </select>
+
+  <select id="selectByFullTag" resultMap="BaseResultMap">
+    SELECT * FROM device_event
+    <where>
+      <if test="ts != null">and ts=#{ts,jdbcType=BIGINT}</if>
+      <if test="carrierId != null">and carrier_id=#{carrierId,jdbcType=VARCHAR}</if>
+      <if test="deviceId != null">and device_id=#{deviceId,jdbcType=VARCHAR}</if>
+      <if test="driverId != null">and driver_id=#{driverId,jdbcType=VARCHAR}</if>
+      <if test="eventCmdId != null">and event_cmd_id=#{eventCmdId,jdbcType=INTEGER} </if>
+    </where>
+  </select>
+
+  <insert id="importMany">
+    IMPORT INTO
+    <foreach collection="multiTableDataList" index="tableIndex" item="table">
+        ${table.name} USING device_event TAGS (#{table.carrierId},#{table.deviceId},#{table.driverId},#{table.eventCmdId}) VALUES
+        <foreach collection="table.data" index="dataIndex" item="item">
+          (#{item.ts}, #{item.value})
+        </foreach>
+    </foreach>
+  </insert>
+</mapper>
