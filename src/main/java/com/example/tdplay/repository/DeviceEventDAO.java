@@ -60,8 +60,4 @@ public interface DeviceEventDAO {
      * @return
      */
     List<DeviceEvent> selectByFullTag(Long ts, String carrierId, String deviceId, String driverId, Integer eventCmdId);
-
-    @Select("SELECT last_row(*),carrier_id,driver_id,device_id FROM device_event group by tbname;")
-    @ResultMap("LastDeviceEventMap")
-    List<DeviceEvent> queryAllLastDeviceEvent();
 }

@@ -38,19 +38,6 @@
     </foreach>
     ;
   </insert>
-  <select id="query" parameterType="com.aidong.smartlinkproxyservice.model.requestmodel.GpsQueryForm" resultMap="BaseResultMap">
-    SELECT * FROM gps_data
-    <where>
-      <if test="carrierId != null">and carrier_id=#{carrierId,jdbcType=VARCHAR}</if>
-      <if test="deviceId != null">and device_id=#{deviceId,jdbcType=VARCHAR}</if>
-      <if test="driverId != null">and driver_id=#{driverId,jdbcType=VARCHAR}</if>
-      <if test="startTime != null">and #{startTime,jdbcType=BIGINT}&lt;=ts</if>
-      <if test="endTime != null">and ts&lt;#{endTime,jdbcType=BIGINT}</if>
-    </where>
-    <if test="pageSize lt 65536">LIMIT #{pageSize,jdbcType=INTEGER}</if>
-    <if test="pageSize gt 0 and pageIndex gt 0">OFFSET ${pageIndex*pageSize}</if>
-  </select>
-
   <insert id="insertOne">
     INSERT INTO gps_data_${subTable} USING gps_data TAGS (#{item.carrierId},#{item.deviceId},#{item.driverId}) VALUES
     (#{item.ts},#{item.longitude},#{item.latitude},#{item.hdop},#{item.speed});
